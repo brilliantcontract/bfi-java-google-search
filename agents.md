@@ -1,4 +1,4 @@
-Project use Java 8. No use of NodeJS or Python at all.
+Project use Java 21. No use of NodeJS or Python at all.
 
 
 
@@ -36,8 +36,8 @@ Example:
         ChannelAbout channel = parser.parse("https://www.youtube.com/@some/about", html);
         
         // Assertion.
-        assertThat(channel.getLinkToTwitter(), is(expectedTwitter));
-        assertThat(channel.getOtherLinks(), is(expectedOther));
+        assertThat(channel.getLinkToTwitter()).isEqualTo(expectedTwitter);
+        assertThat(channel.getOtherLinks()).isEqualTo(expectedOther);
     }
 
 
