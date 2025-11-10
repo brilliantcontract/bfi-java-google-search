@@ -23,7 +23,7 @@ public final class Serper {
     public Serper(final String apiKey) {
         this.apiKey = Objects.requireNonNull(apiKey, "Serper API key must not be null.");
         this.gson = new Gson();
-        Unirest.config().connectTimeout(0);
+        Unirest.config().connectTimeout(60_000);
     }
 
     public List<ResultItem> search(final String query) {

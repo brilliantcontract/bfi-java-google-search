@@ -10,15 +10,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class QueryRepository {
+public final class Base {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(QueryRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Base.class);
     private static final String COLUMN_QUERY = "query";
     private static final String JDBC_PREFIX = "jdbc:postgresql://";
 
     private final String jdbcUrl;
 
-    public QueryRepository() {
+    public Base() {
         this.jdbcUrl = JDBC_PREFIX + Config.DB_HOST + ":" + Config.DB_PORT + "/" + Config.DB_DATABASE;
         try {
             Class.forName("org.postgresql.Driver");
