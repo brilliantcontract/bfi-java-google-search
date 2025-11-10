@@ -10,8 +10,10 @@ public class Main {
     private static final int QUERY_LIMIT = 1000;
 
     public static void main(final String[] args) {
-        final Base repository = new Base();
-        final List<String> queries = repository.fetchQueries(QUERY_LIMIT);
+        final Base base = new Base();
+        final Serper serper = new Serper(Config.SERPER_API_KEY);
+
+        final List<String> queries = base.fetchQueries(QUERY_LIMIT);
         LOGGER.info("Loaded {} queries from database.", Integer.valueOf(queries.size()));
 
         if (queries.isEmpty()) {
@@ -20,10 +22,10 @@ public class Main {
         }
 
         for (String query : queries) {
-            final Serper serper = new Serper(Config.SERPER_API_KEY);
             LOGGER.info("Executing Serper search for the first query: {}", query);
-            final List<ResultItem> results = serper.search(query);
-            LOGGER.info("Serper returned {} results for query '{}'.", Integer.valueOf(results.size()), query);
+            final List<SearchResultItem> searchResults = serper.search(query);
+            LOGGER.info("Serper returned {} results for query '{}'.", Integer.valueOf(searchResults.size()), query);
+            base.saveSearches(searchResults);
         }
     }
 }

@@ -26,9 +26,9 @@ public final class Serper {
         Unirest.config().connectTimeout(60_000);
     }
 
-    public List<ResultItem> search(final String query) {
+    public List<SearchResultItem> search(final String query) {
         Objects.requireNonNull(query, "Query must not be null.");
-        final List<ResultItem> items = new ArrayList<>();
+        final List<SearchResultItem> items = new ArrayList<>();
 
         for (int page = 1; page <= MAX_PAGES; page++) {
             final String body = buildRequestBody(query, page);
@@ -64,7 +64,7 @@ public final class Serper {
                 final String snippet = result.getSnippet() != null ? result.getSnippet() : "";
                 final String link = result.getLink() != null ? result.getLink() : "";
                 final int position = result.getPosition() != null ? result.getPosition().intValue() : 0;
-                final ResultItem item = new ResultItem(snippet, link, page, position, query, title);
+                final SearchResultItem item = new SearchResultItem(snippet, link, page, position, query, title);
                 items.add(item);
             }
         }

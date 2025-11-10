@@ -60,7 +60,7 @@ public final class Base {
         return queries;
     }
 
-    public void saveSearches(final List<ResultItem> searchResults) {
+    public void saveSearches(final List<SearchResultItem> searchResults) {
         Objects.requireNonNull(searchResults, "Search results must not be null.");
         if (searchResults.isEmpty()) {
             LOGGER.info("No search results to save into database.");
@@ -71,7 +71,7 @@ public final class Base {
 
         try (Connection connection = connector.connect(jdbcUrl, Config.DB_USERNAME, Config.DB_PASSWORD);
                 PreparedStatement statement = connection.prepareStatement(INSERT_SEARCH_SQL)) {
-            for (ResultItem item : searchResults) {
+            for (SearchResultItem item : searchResults) {
                 if (item == null) {
                     LOGGER.warn("Encountered null search result while saving. Skipping entry.");
                     continue;

@@ -2,7 +2,7 @@ package bc.bfi.google_search;
 
 import java.util.Objects;
 
-public final class ResultItem {
+public final class SearchResultItem {
 
     private final String description;
     private final String link;
@@ -11,7 +11,7 @@ public final class ResultItem {
     private final String query;
     private final String title;
 
-    public ResultItem(final String description, final String link, final int pageNumber,
+    public SearchResultItem(final String description, final String link, final int pageNumber,
             final int position, final String query, final String title) {
         this.description = description != null ? description : "";
         this.link = link != null ? link : "";
