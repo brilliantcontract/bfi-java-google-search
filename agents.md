@@ -10,7 +10,7 @@ Rule of thumb: More tests - better.
 
 Rules for testing:
 - All features should have a unit test or tests.
-- Should be used JUnit with matchers from Hamcrest library.
+- Should be used JUnit with matchers from org.assertj library.
 - Should be used Mockito library when needed.
 
 Each test method should have 3-4 sections, each section devided by commont line and empty line:
