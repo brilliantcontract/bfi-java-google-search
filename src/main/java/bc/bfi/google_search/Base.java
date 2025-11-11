@@ -24,23 +24,29 @@ public final class Base {
     private final Sql2o sql2o;
 
     public Base() {
-        this(new DriverManagerDatabaseConnector());
+        this(createDefaultSql2o());
     }
 
-    Base(final DatabaseConnector databaseConnector) {
-        Objects.requireNonNull(databaseConnector, "Database connector must not be null.");
+    Base(final Sql2o sql2o) {
+        this.sql2o = Objects.requireNonNull(sql2o, "Sql2o instance must not be null.");
+    }
+
+    private static Sql2o createDefaultSql2o() {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException exception) {
             throw new IllegalStateException("PostgreSQL JDBC driver is not available.", exception);
         }
+
         final String jdbcUrl = JDBC_PREFIX + Config.DB_HOST + ":" + Config.DB_PORT + "/" + Config.DB_DATABASE;
-        final Sql2o createdSql2o = databaseConnector.connect(jdbcUrl, Config.DB_USERNAME, Config.DB_PASSWORD);
-        this.sql2o = Objects.requireNonNull(createdSql2o, "Sql2o instance must not be null.");
+        return createSql2o(jdbcUrl, Config.DB_USERNAME, Config.DB_PASSWORD);
     }
 
-    Base(final Sql2o sql2o) {
-        this.sql2o = Objects.requireNonNull(sql2o, "Sql2o instance must not be null.");
+    private static Sql2o createSql2o(final String jdbcUrl, final String username, final String password) {
+        Objects.requireNonNull(jdbcUrl, "JDBC URL must not be null.");
+        Objects.requireNonNull(username, "Database username must not be null.");
+        Objects.requireNonNull(password, "Database password must not be null.");
+        return new Sql2o(jdbcUrl, username, password);
     }
 
     public List<String> fetchQueries(final int limit) {
