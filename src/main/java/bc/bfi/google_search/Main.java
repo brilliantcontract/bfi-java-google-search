@@ -7,13 +7,12 @@ import org.slf4j.LoggerFactory;
 public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-    private static final int QUERY_LIMIT = 1000;
 
     public static void main(final String[] args) {
         final Base base = new Base();
         final Serper serper = new Serper(Config.SERPER_API_KEY);
 
-        final List<String> queries = base.fetchQueries(QUERY_LIMIT);
+        final List<String> queries = base.fetchQueries();
         LOGGER.info("Loaded {} queries from database.", Integer.valueOf(queries.size()));
 
         if (queries.isEmpty()) {

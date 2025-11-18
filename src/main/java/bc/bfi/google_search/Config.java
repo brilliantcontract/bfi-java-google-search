@@ -11,6 +11,7 @@ public class Config {
     /**
      * Database.
      */
+    static final int QUERY_LIMIT = 1000;
     static final String DB_HOST = "3.140.167.34";
     static final String DB_PORT = "5432";
     static final String DB_USERNAME = "redash";

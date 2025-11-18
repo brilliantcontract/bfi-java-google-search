@@ -49,12 +49,12 @@ public final class Base {
         return new Sql2o(jdbcUrl, username, password);
     }
 
-    public List<String> fetchQueries(final int limit) {
-        assert limit > 0 : "Limit must be greater than zero. Got: " + limit;
+    public List<String> fetchQueries() {
+        assert Config.QUERY_LIMIT > 0 : "Limit must be greater than zero. Got: " + Config.QUERY_LIMIT;
         final List<String> queries = new ArrayList<>();
         try (Connection connection = sql2o.open()) {
             final Query statement = connection.createQuery(SELECT_QUERIES_SQL);
-            statement.addParameter("limit", limit);
+            statement.addParameter("limit", Config.QUERY_LIMIT);
             final List<String> rawQueries = statement.executeScalarList(String.class);
             for (String query : rawQueries) {
                 if (query == null || query.isEmpty()) {
